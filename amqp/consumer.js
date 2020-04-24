@@ -1,7 +1,7 @@
 const amqp = require('amqplib/callback_api')
 const {save_to_db} = require('../functions/save_to_db')
 const config = require('config')
-//const {sender_email} = require('...')
+const {email_sender} = require('../functions/email_sender')
 //const {funzioneLuca} = require('...')
 
 function amqpStartUp() {
@@ -124,7 +124,7 @@ function amqpStartUp() {
             
                 // Sending results
                 // funzioneLuca(JSON.stringify(result_front_end))
-                // email_sender(result_email)
+                email_sender(result_email)
 
             }, {
                 noAck: true
