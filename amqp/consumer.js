@@ -121,11 +121,15 @@ function amqpStartUp() {
 
                 // console.log(result_front_end)   <- LUCA
                 // console.log(result_email)       <- MARIO
-            
-                // Sending results
-                // funzioneLuca(JSON.stringify(result_front_end))
-                email_sender(result_email)
 
+                if(result_email.length == 0){
+                    console.log("All chemical_agents' values are below maximum threshold")
+                    return
+                }
+
+                // Sending results
+                // email_sender(result_email)
+                // funzioneLuca(JSON.stringify(result_front_end))
             }, {
                 noAck: true
             })
