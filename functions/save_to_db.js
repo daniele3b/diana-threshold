@@ -22,8 +22,20 @@ async function save_to_db(object){
     }
 }
 
-exports.save_to_db = save_to_db
+function validate(agThreshold) {
+    const schema = {
+        type: Joi.string().required(),
+        sensore: Joi.string().required(),
+        value:   Joi.number().required(),
+        date:  Joi.date().required(),
+        lon: Joi.string().required(),
+        lat: Joi.string().required()
+    }
+    return Joi.validate(agThreshold,schema)
+}
 
+exports.save_to_db = save_to_db
+exports.validate = validate
 
 
 
