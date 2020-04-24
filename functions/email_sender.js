@@ -10,13 +10,13 @@ async function email_sender(array){
     {
         console.log(res[i].email)
         let info=transporter.sendMail({
-            from: '"Progetto Diana" <progetto-diana@libero.it>', // sender address
-            to: res[i].email, // list of receivers
-            subject: "Attenzione", // Subject line
-            text: "Attenzione", // plain text body
+            from: '"Progetto Diana" <progetto-diana@libero.it>', 
+            to: res[i].email, 
+            subject: "Attenzione", 
+            text: "Attenzione", 
             html: "<body><h1> Livello critico raggiunto:</h1><br> Raggiunto livello di "+ 
                     array.type+" pari a "+array.value+" in data "+array.date+" presso il sensore "
-                    +array.sensore+ "("+array.lat+", "+array.lon+")</body>", // html body
+                    +array.sensore+ "("+array.lat+", "+array.lon+")</body>", 
         })
     }
 
