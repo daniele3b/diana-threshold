@@ -1,9 +1,6 @@
 {
     "db" : "mongodb://localhost/Diana",
-<<<<<<< HEAD
-    "email_host":"smtp.libero.it"
-=======
     "amqp_server" : "amqp://localhost",
-    "queue" : "Diana-queue"
->>>>>>> 11ea497a9d76ae281c357f3eb8c615ed8e0b0174
+    "queue" : "Diana-queue",
+    "email_host":"smtp.libero.it"
 }
