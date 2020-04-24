@@ -1,15 +1,15 @@
-const express = require('express')
+const http = require('http')
 const {logger}=require('./startup/logging')
 const config=require('config')
-const app = express()
-
-
 const port = process.env.PORT || 8080 
-
 require('./startup/db')()
 
+const server = http.createServer((res,req) => {
+    console.log((new Date()) + ' Received request for ' + req.url)
+})
 
-const server = app.listen(8080, () =>  { console.log("Server listening on port : " , port)})
-
+server.listen(port, () => {
+    console.log((new Date()) + ' Server is listening on port 8080');
+})
 
 module.exports = server
