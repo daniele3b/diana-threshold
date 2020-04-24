@@ -11,6 +11,6 @@ const agThreshold = new mongoose.Schema({
 
 });
 
-const Treshold = mongoose.model('Threshold', agThreshold);
+const Threshold = mongoose.model('Threshold', agThreshold);
 
 exports.Threshold = Threshold
