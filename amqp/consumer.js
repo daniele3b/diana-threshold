@@ -128,7 +128,7 @@ function amqpStartUp() {
                 }
 
                 // Sending results
-                // email_sender(result_email)
+                email_sender(result_email)
                 // funzioneLuca(JSON.stringify(result_front_end))
             }, {
                 noAck: true

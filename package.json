@@ -19,8 +19,10 @@
   "dependencies": {
     "amqplib": "^0.5.5",
     "config": "^3.3.1",
+    "dotenv": "^8.2.0",
     "http": "0.0.1-security",
     "mongoose": "^5.9.10",
+    "nodemailer": "^6.4.6",
     "websocket": "^1.0.31",
     "winston": "^3.2.1"
   }
