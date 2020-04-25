@@ -21,10 +21,12 @@ function amqpStartUp() {
             })
 
             channel.consume(queue, function(msg) {
+                // Taking chemical agents from Diana that must be analyzed
                 const arr_chemical_agents = JSON.parse(msg.content)
                 const dim = arr_chemical_agents.length
                 let i
-                let result_front_end = []
+
+                let soglia_superata = false
 
                 for(i=0;i<dim;i++){
 
@@ -38,6 +40,8 @@ function amqpStartUp() {
                 
                     // Checking tresholds
                     if(value >= 101 && value <= 150){
+                        soglia_superata = true
+
                         const toSaveInDb = {
                             type: type,
                             sensore: sensor,
@@ -46,18 +50,24 @@ function amqpStartUp() {
                             lon: lon,
                             lat: lat
                         }
+                        // Sending an email and saving into the database
                         email_sender(toSaveInDb)
                         save_to_db(toSaveInDb)
-                    
-                        result_front_end.push({
+
+                        const forFrontEnd = {
                             type: type,
                             value: value,
                             air_pollution_level: 'Unhealthy for sensitive groups',
-                            color: 'orange'
-                        })
+                            color: 'orange'                        
+                        }
+                        // Communicating with frontend
+                        // frontend_comunicate(JSON.stringify(forFrontEnd))
                     }
-                
+                    
+                    // Checking tresholds
                     else if(value >= 151 && value <= 200){
+                        soglia_superata = true
+
                         const toSaveInDb = {
                             type: type,
                             sensore: sensor,
@@ -66,18 +76,24 @@ function amqpStartUp() {
                             lon: lon,
                             lat: lat
                         }
+                        // Sending an email and saving into the database
                         email_sender(toSaveInDb)
                         save_to_db(toSaveInDb)
 
-                        result_front_end.push({
+                        const forFrontEnd = {
                             type: type,
                             value: value,
                             air_pollution_level: 'Unhealthy',
-                            color: 'red'
-                        })
+                            color: 'red'                        
+                        }
+                        // Communicating with frontend
+                        // frontend_comunicate(JSON.stringify(forFrontEnd))
                     }
-                
+                    
+                    // Checking tresholds
                     else if(value >= 201 && value <= 300){
+                        soglia_superata = true
+
                         const toSaveInDb = {
                             type: type,
                             sensore: sensor,
@@ -86,18 +102,24 @@ function amqpStartUp() {
                             lon: lon,
                             lat: lat
                         }
+                        // Sending an email and saving into the database
                         email_sender(toSaveInDb)
                         save_to_db(toSaveInDb)
-
-                        result_front_end.push({
+                        
+                        const forFrontEnd = {
                             type: type,
                             value: value,
                             air_pollution_level: 'Very Unhealthy',
-                            color: 'violet'
-                        })
+                            color: 'violet'                        
+                        }
+                        // Communicating with frontend
+                        // frontend_comunicate(JSON.stringify(forFrontEnd))
                     }
-                
+                    
+                    // Checking tresholds
                     else if(value >= 301){
+                        soglia_superata = true
+
                         const toSaveInDb = {
                             type: type,
                             sensore: sensor,
@@ -106,27 +128,26 @@ function amqpStartUp() {
                             lon: lon,
                             lat: lat
                         }
+                        // Sending an email and saving into the database
                         email_sender(toSaveInDb)
                         save_to_db(toSaveInDb)
 
-                        result_front_end.push({
+                        const forFrontEnd = {
                             type: type,
                             value: value,
                             air_pollution_level: 'Hazardous',
-                            color: 'brown'
-                        })
+                            color: 'brown'                        
+                        }
+                        // Communicating with frontend
+                        // frontend_comunicate(JSON.stringify(forFrontEnd))
                     }
                 }
 
-                // console.log(result_front_end)   <- LUCA
-
-                if(result_front_end.length == 0){
+                if(!soglia_superata){
                     console.log("All chemical_agents' values are below maximum threshold")
                     return
                 }
 
-                // Sending results
-                // frontend_comunicate(JSON.stringify(result_front_end))
             }, {
                 noAck: true
             })
