@@ -2,7 +2,7 @@ const amqp = require('amqplib/callback_api')
 const {save_to_db} = require('../functions/save_to_db')
 const config = require('config')
 const {email_sender} = require('../functions/email_sender')
-//const {frontend_comunicate} = require('../websockets/ws')
+const {frontend_comunicate} = require('../websockets/ws')
 
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -25,10 +25,6 @@ function amqpStartUp() {
             })
 
             channel.consume(queue, async function(msg) {
-                if(msg == undefined){
-                    console.log('Amqp server started late')
-                    return
-                }
                 // Taking chemical agents from Diana that must be analyzed
                 const arr_chemical_agents = JSON.parse(msg.content)
                 const dim = arr_chemical_agents.length
@@ -69,7 +65,7 @@ function amqpStartUp() {
                                 color: 'orange'                        
                             }
                             // Communicating with frontend
-                            // frontend_comunicate(JSON.stringify(forFrontEnd))
+                            frontend_comunicate(JSON.stringify(forFrontEnd))
                         }
                     
                         // Checking tresholds
@@ -95,7 +91,7 @@ function amqpStartUp() {
                                 color: 'red'                        
                             }
                             // Communicating with frontend
-                            // frontend_comunicate(JSON.stringify(forFrontEnd))
+                            frontend_comunicate(JSON.stringify(forFrontEnd))
                         }
                     
                         // Checking tresholds
@@ -121,7 +117,7 @@ function amqpStartUp() {
                                 color: 'violet'                        
                             }
                             // Communicating with frontend
-                            // frontend_comunicate(JSON.stringify(forFrontEnd))
+                            frontend_comunicate(JSON.stringify(forFrontEnd))
                         }
 
                         // Checking tresholds
@@ -147,7 +143,7 @@ function amqpStartUp() {
                                 color: 'brown'                        
                             }
                             // Communicating with frontend
-                            // frontend_comunicate(JSON.stringify(forFrontEnd))
+                            frontend_comunicate(JSON.stringify(forFrontEnd))
                         }
                     })
                 }

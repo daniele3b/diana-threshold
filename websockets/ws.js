@@ -35,7 +35,7 @@ exports.startUpWebSocket = function startUpWebSocket(server) {
         connection.on('message', (message) => {
             if (message.type === 'utf8') {
                 console.log('Received Message: ' + message.utf8Data)
-                frontend_comunicate('Messaggio di prova')
+                //frontend_comunicate('Messaggio di prova')
             }
             else if (message.type === 'binary') {
                 console.log('Received Binary Message of ' + message.binaryData.length + ' bytes')
