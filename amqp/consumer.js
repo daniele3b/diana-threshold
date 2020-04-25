@@ -119,7 +119,6 @@ function amqpStartUp() {
                 }
 
                 // console.log(result_front_end)   <- LUCA
-                // console.log(result_email)       <- MARIO
 
                 if(result_front_end.length == 0){
                     console.log("All chemical_agents' values are below maximum threshold")
