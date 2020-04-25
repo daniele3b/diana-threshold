@@ -17,7 +17,7 @@ function amqpStartUp() {
             const queue = config.get('queue')
 
             channel.assertQueue(queue, {
-                durable: true
+                durable: false
             })
 
             channel.consume(queue, function(msg) {
