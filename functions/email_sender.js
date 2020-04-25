@@ -18,6 +18,14 @@ async function email_sender(array){
                     array.type+" pari a "+array.value+" in data "+array.date+" presso il sensore "
                     +array.sensore+ "("+array.lat+", "+array.lon+")</body>", 
         })
+
+        function sleep(s){
+            var now = new Date().getTime();
+            while(new Date().getTime() < now + (s*1000)){ /* non faccio niente */ } 
+        }
+
+        sleep(1)
+        
     }
 
 }
