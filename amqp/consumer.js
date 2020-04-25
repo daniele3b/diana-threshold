@@ -25,7 +25,6 @@ function amqpStartUp() {
                 const dim = arr_chemical_agents.length
                 let i
                 let result_front_end = []
-                let result_email = []
 
                 for(i=0;i<dim;i++){
 
@@ -47,7 +46,7 @@ function amqpStartUp() {
                             lon: lon,
                             lat: lat
                         }
-                        result_email.push(toSaveInDb)
+                        email_sender(toSaveInDb)
                         save_to_db(toSaveInDb)
                     
                         result_front_end.push({
@@ -67,7 +66,7 @@ function amqpStartUp() {
                             lon: lon,
                             lat: lat
                         }
-                        result_email.push(toSaveInDb)
+                        email_sender(toSaveInDb)
                         save_to_db(toSaveInDb)
 
                         result_front_end.push({
@@ -87,7 +86,7 @@ function amqpStartUp() {
                             lon: lon,
                             lat: lat
                         }
-                        result_email.push(toSaveInDb)
+                        email_sender(toSaveInDb)
                         save_to_db(toSaveInDb)
 
                         result_front_end.push({
@@ -107,7 +106,7 @@ function amqpStartUp() {
                             lon: lon,
                             lat: lat
                         }
-                        result_email.push(toSaveInDb)
+                        email_sender(toSaveInDb)
                         save_to_db(toSaveInDb)
 
                         result_front_end.push({
@@ -122,13 +121,12 @@ function amqpStartUp() {
                 // console.log(result_front_end)   <- LUCA
                 // console.log(result_email)       <- MARIO
 
-                if(result_email.length == 0){
+                if(result_front_end.length == 0){
                     console.log("All chemical_agents' values are below maximum threshold")
                     return
                 }
 
                 // Sending results
-                email_sender(result_email)
                 // funzioneLuca(JSON.stringify(result_front_end))
             }, {
                 noAck: true
