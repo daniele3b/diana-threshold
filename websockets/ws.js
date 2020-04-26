@@ -1,4 +1,5 @@
 const WebSocketServer = require('websocket').server
+const config = require('config')
 let connection = undefined
 
 
@@ -35,7 +36,9 @@ exports.startUpWebSocket = function startUpWebSocket(server) {
         connection.on('message', (message) => {
             if (message.type === 'utf8') {
                 console.log('Received Message: ' + message.utf8Data)
-                //frontend_comunicate('Messaggio di prova')
+                if(message.utf8Data != config.get('admin_message')){
+                    connection = undefined
+                }
             }
             else if (message.type === 'binary') {
                 console.log('Received Binary Message of ' + message.binaryData.length + ' bytes')
